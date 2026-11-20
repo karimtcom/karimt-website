@@ -67,7 +67,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..400;1,6..72,300..400&display=swap" rel="stylesheet">
-<link rel="preload" href="/media/portrait-xl.webp" as="image">
 <style>/* cyrillic-ext */
 
 /* cyrillic */
@@ -140,21 +139,14 @@ a{color:inherit}
 .hd nav a{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .25s}
 .hd nav a:hover{color:var(--ink)}
 .hd.solid{background:rgba(252,252,252,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line)}
-html.motion .hd.off{opacity:0;transform:translateY(-12px);pointer-events:none}
 .skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--ink);color:#fff;padding:10px 16px;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:top .2s}
 .skip:focus{top:12px}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
 /* ---------- INTRO (static fallback first) ---------- */
-.intro{position:relative}
-.pin{position:relative}
-.card-stage{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:96px 20px 120px;position:relative}
 
 /* ---------- business card ---------- */
-.card-stage::before{content:"";position:absolute;inset:0;z-index:0;opacity:var(--bgo,1);
-  background:radial-gradient(ellipse 72% 62% at 50% 44%,#F3F3F0 0%,#E9E9E5 60%,#DEDED9 100%)}
-.card-stage>*{position:relative;z-index:1}
-.vc-wrap{width:min(600px,74vw);aspect-ratio:85/55;container-type:inline-size;perspective:1600px;will-change:transform}
+.vc-wrap{width:100%;aspect-ratio:85/55;container-type:inline-size;perspective:1600px;transition:transform .5s var(--ease)}
 .vc-flip{position:relative;width:100%;height:100%;transform-style:preserve-3d}
 .vc-face{position:absolute;inset:0;border-radius:2.4cqw;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;
   box-shadow:0 1px 1px rgba(10,10,10,.05),0 10px 22px -12px rgba(10,10,10,.22),0 46px 90px -38px rgba(10,10,10,.34)}
@@ -192,7 +184,6 @@ html.motion .vc-flip{animation:vcland 1.75s .25s both}
 html.motion .vc-wrap{animation:vcin .5s .25s both}
 html.motion .vf-ul path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .9s 1.9s ease forwards}
 html.motion .vc-actions{animation:vcfade .8s 1.75s both}
-html.motion .cue{animation:vcfade .8s 2.1s both}
 @keyframes vcland{
   0%{transform:translateY(46px) rotateX(24deg) rotateY(180deg) scale(.94)}
   30%{transform:translateY(0) rotateX(0) rotateY(180deg) scale(1)}
@@ -200,65 +191,48 @@ html.motion .cue{animation:vcfade .8s 2.1s both}
   100%{transform:translateY(0) rotateX(0) rotateY(0deg) scale(1)}}
 @keyframes vcin{from{opacity:0}to{opacity:1}}
 @keyframes vcfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media(max-width:860px){
-  .vc-wrap{aspect-ratio:55/85;width:min(310px,78vw,calc((100svh - 250px) * 55 / 85))}
-  .vc-face{border-radius:3.6cqw}
-  .vc-front{padding:10cqw 9.5cqw 9cqw}
-  .vc-back img{width:52%}
-  .vf-logo{width:19cqw}
-  .vf-loc{font-size:max(8.5px,2.9cqw)}
-  .vf-mid{align-self:center}
-  .vf-name{font-size:12.2cqw;line-height:1.02}
-  .vf-ul{width:62cqw;height:3.4cqw;margin:3cqw 0 2.6cqw}
-  .vf-role{font-size:max(9px,3.1cqw)}
-  .vf-bot{flex-direction:column;align-items:flex-start;gap:6cqw}
-  .vf-contact{font-size:max(12px,4.3cqw);column-gap:4.4cqw;row-gap:1.2cqw}
-  .vf-contact dt{font-size:max(8.5px,2.7cqw)}
-  .vf-tag{text-align:left;font-size:max(12px,4.3cqw)}
-  .vc-actions .va-save{padding:0 18px}
-}
-@media(prefers-reduced-motion:reduce){.vc-flip,.vc-wrap,.vc-actions,.cue{animation:none!important}.vf-ul path{stroke-dashoffset:0}}
-.cue{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--muted);font:inherit;font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;padding:8px 14px}
-.cue svg{width:12px;height:30px;animation:bob 1.8s var(--ease) infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-.sweep,.morph{display:none}
-.hero-comp{position:relative;padding:40px 0 30px;overflow:hidden}
-.hero-grid{display:flex;gap:56px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.hero-l{flex:1 1 440px;min-width:280px}
-.hero-l .eyebrow{margin-bottom:22px}
+@media(prefers-reduced-motion:reduce){.vc-flip,.vc-wrap,.vc-actions,.vc-photo,.h1 .hw{animation:none!important}.vf-ul path{stroke-dashoffset:0}}
 .h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,8vw,5.6rem);line-height:1.02;letter-spacing:-.015em;margin:0}
 .h1 .ln1,.h1 .ln2{display:block;overflow:hidden;padding:.06em 0 .12em}
 .h1 .ln2{overflow:visible}
 .h1 .hw{display:inline-block}
 .h1 .sh{font-style:italic;position:relative;padding:0 .3em}
 .h1 .oval{position:absolute;inset:-14% -8% -20% -6%;width:114%;height:140%;overflow:visible;pointer-events:none;color:var(--ink)}
-.slot{position:relative;flex:0 0 auto;width:min(340px,72vw);aspect-ratio:1/1;margin:0 auto}
-.slot-img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;border-radius:50%;display:block;border:1px solid var(--grey-2)}
-.ghost{position:absolute;width:44%;height:auto;opacity:.16;pointer-events:none}
-.ghost.g1{left:-28%;top:-10%;transform:rotate(-8deg)}
-.ghost.g2{right:-24%;bottom:-6%;transform:rotate(7deg)}
-.slot-sign{position:absolute;left:50%;top:calc(100% + 16px);transform:translateX(-50%);width:96px;opacity:.9}
 
 /* ---------- INTRO motion mode ---------- */
-html.motion .intro{height:330vh}
-html.motion .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-html.motion .card-stage{position:absolute;inset:0;min-height:0;z-index:1;padding:20px 20px 90px}
-html.motion .sweep{display:block;position:absolute;top:50%;left:0;width:min(112vh,142vw);z-index:4;pointer-events:none;will-change:transform;opacity:0}
-html.motion .sweep img{width:100%;height:auto;display:block}
-html.motion .morph{display:block;position:absolute;z-index:3;overflow:hidden;will-change:top,left,width,height;background:#111}
-html.motion .morph img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;display:block}
-html.motion .hero-comp{position:absolute;inset:0;z-index:2;display:flex;align-items:center;padding:90px 0 40px}
-html.motion .hero-comp .wrap{width:100%}
-html.motion .slot-img{visibility:hidden}
-html.motion .h1 .hw{transform:translateY(110%);opacity:0}
-html.motion .hero-l .eyebrow{opacity:0}
-html.motion .ghost{opacity:0}
-html.motion .slot-sign{display:none}
-html.motion .h1 .oval path{stroke-dasharray:1;stroke-dashoffset:1}
 
 /* ---------- after hero ---------- */
-.lead-sec{padding:40px 0 96px;border-bottom:1px solid var(--line)}
-.lead-sec .wrap>div{max-width:640px}
+/* ---------- hero (opens straight away, no pinned scroll) ---------- */
+.hero{padding:calc(118px + env(safe-area-inset-top)) 0 84px;border-bottom:1px solid var(--line);overflow:hidden;
+  background:radial-gradient(ellipse 46% 62% at 78% 44%,#F1F1EE 0%,rgba(241,241,238,0) 100%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);grid-template-areas:"head card" "body card";column-gap:72px;align-items:start}
+.hero-head{grid-area:head}.hero-body{grid-area:body;max-width:560px;padding-top:34px}.hero-card{grid-area:card;align-self:center;padding-top:26px}
+.hero-head .eyebrow{margin-bottom:22px}
+.h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,6.6vw,5.2rem);line-height:1.02;letter-spacing:-.015em;margin:0}
+.h1 .ln1,.h1 .ln2{display:block;overflow:hidden;padding:.06em 0 .12em}
+.h1 .ln2{overflow:visible}
+.h1 .hw{display:inline-block}
+.h1 .sh{font-style:italic;position:relative;padding:0 .3em}
+.h1 .oval{position:absolute;inset:-14% -8% -20% -6%;width:114%;height:140%;overflow:visible;pointer-events:none;color:var(--ink)}
+html.motion .h1 .hw{animation:hwin .9s var(--ease) both;animation-delay:calc(var(--i) * 90ms + 120ms)}
+html.motion .h1 .oval path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s .95s ease forwards}
+html.motion .h1 .oval path+path{animation-delay:1.35s}
+@keyframes hwin{from{transform:translateY(110%);opacity:0}to{transform:none;opacity:1}}
+.cardtilt{position:relative;transform:rotate(-2deg);margin:0 26px 30px 0}
+.vc-photo{position:absolute;right:-8%;top:-17%;width:34%;height:auto;aspect-ratio:1/1;border-radius:50%;object-fit:cover;transform:rotate(4deg);
+  box-shadow:0 0 0 5px #fff,0 16px 28px -12px rgba(10,10,10,.45);z-index:3}
+html.motion .vc-photo{animation:photopop .7s 1.7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes photopop{from{opacity:0;transform:rotate(-14deg) scale(.6)}to{opacity:1;transform:rotate(4deg) scale(1)}}
+.vc-actions{flex-wrap:wrap}
+@media(max-width:860px){
+  .hero{padding:calc(96px + env(safe-area-inset-top)) 0 64px;background:none}
+  .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "card" "body";row-gap:8px}
+  .hero-card{padding-top:44px;max-width:400px}
+  .cardtilt{margin:0 18px 26px 0}
+  .hero-body{padding-top:30px}
+  .ghostbtn{margin:10px 0 0}
+  .vc-actions .va-save{padding:0 18px}
+}
 .lead{font-size:clamp(1.08rem,1.6vw,1.22rem);color:var(--ink-soft);margin:0 0 22px;line-height:1.65}
 .why{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.3rem,2.4vw,1.6rem);line-height:1.35;margin:0 0 22px;max-width:30ch}
 .base{font-size:.95rem;color:var(--muted);margin:0 0 34px}
@@ -354,11 +328,6 @@ html.motion [data-rv].in{opacity:1;transform:none}
 @media(max-width:860px){
   .hd nav{gap:16px}.hd nav a{font-size:.6rem;letter-spacing:.16em}
             html.motion .intro{height:300vh}
-  html.motion .hero-comp{align-items:flex-start;padding:86px 0 0}
-  .hero-grid{flex-direction:column;align-items:flex-start;gap:30px}
-  .hero-l{flex:none}
-  .slot{width:min(280px,72vw)}
-  .slot-sign{display:none}
   .ghostbtn{margin:10px 0 0}
   .ln-svg.dt{display:none}.ln-svg.mb{display:block}
   .ln-stop,.ln-alt{justify-content:flex-start;min-height:0;padding:14px 0 14px 46px}
@@ -367,8 +336,6 @@ html.motion [data-rv].in{opacity:1;transform:none}
   .mq-track{gap:44px}.mq-track img{height:24px;max-width:110px}
   .rvw .qm{width:56px;height:42px;top:-4px}
 }
-@media(max-height:700px) and (max-width:860px){.slot{width:min(200px,52vw)}}
-@media(max-height:780px) and (min-width:861px){.slot{width:min(290px,28vw)}}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .mq-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;gap:28px 44px}
@@ -376,14 +343,13 @@ html.motion [data-rv].in{opacity:1;transform:none}
   .mq{-webkit-mask-image:none;mask-image:none}
   .rq .w{opacity:1}
   [data-draw] path{stroke-dashoffset:0}
-  .cue svg{animation:none}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#work">Skip to content</a>
 
-<header class="hd off" id="hd">
+<header class="hd" id="hd">
   <div class="wrap">
     <a href="#top" aria-label="karimt.com, back to top"><img src="/media/logo-kt.webp" width="185" height="180" alt="karimt.com"></a>
     <nav aria-label="Main">
@@ -396,19 +362,23 @@ html.motion [data-rv].in{opacity:1;transform:none}
 
 <main id="top">
 
-  <section class="intro" id="intro" aria-label="Introduction">
-    <div class="pin" id="pin">
-
-      <div class="card-stage" id="cardStage">
-        <div class="vc-wrap" id="vcard">
+  <section class="hero" id="intro" aria-label="Introduction">
+    <div class="wrap hero-grid">
+      <div class="hero-head">
+        <span class="eyebrow" id="heroEb">Karim Tousbih &middot; Creative generalist</span>
+        <h1 class="h1" id="h1"><span class="ln1"><span class="hw" style="--i:0">I</span> <span class="hw" style="--i:1">help</span> <span class="hw" style="--i:2">ideas</span></span><span class="ln2"><span class="hw" style="--i:3">take</span> <span class="hw sh" style="--i:4">shape.<svg class="oval" viewBox="0 0 260 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M132 12 C 214 6, 258 26, 252 54 C 246 84, 154 100, 74 95 C 20 91, 4 66, 14 42 C 23 20, 82 8, 156 11 C 196 13, 224 22, 236 38" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".9"/><path pathLength="1" d="M146 18 C 210 15, 242 30, 240 50" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".4"/></svg></span></span></h1>
+      </div>
+      <div class="hero-card" id="cardStage">
+        <div class="cardtilt">
+          <div class="vc-wrap" id="vcard">
           <div class="vc-flip">
             <article class="vc-face vc-front" aria-label="Business card">
               <div class="vf-top">
                 <img class="vf-logo" src="/media/logo-kt.webp" width="185" height="180" alt="KT">
-                <span class="vf-loc">Maasmechelen<br>Belgium</span>
+                
               </div>
               <div class="vf-mid">
-                <h1 class="vf-name">Karim Tousbih</h1>
+                <p class="vf-name">Karim Tousbih</p>
                 <svg class="vf-ul" viewBox="0 0 220 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 7.2 C 48 4.2, 120 5.6, 217 5.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                 <p class="vf-role">Creative generalist</p>
               </div>
@@ -426,44 +396,23 @@ html.motion [data-rv].in{opacity:1;transform:none}
             </div>
           </div>
         </div>
+        
+          <img class="vc-photo" src="/media/portrait.webp" width="720" height="720" alt="Karim Tousbih">
+        </div>
         <nav class="vc-actions" aria-label="Contact actions">
           <a class="va-save" href="/karim-tousbih.vcf" download="Karim-Tousbih.vcf"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2.8 16.4c.6-2.8 2.7-4.4 5.2-4.4 1.2 0 2.3.3 3.1 1M15 10.6v5.6M12.2 13.4h5.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Save contact</span></a>
           <a class="va-ic" href="tel:+32485542703" aria-label="Call" title="Call"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.2 2.8c.9-.4 1.6.2 2 1l1.1 2.4c.3.7.1 1.4-.5 1.9l-.9.7c.7 1.6 2 2.9 3.6 3.7l.7-.9c.5-.6 1.2-.8 1.9-.5l2.4 1.1c.8.4 1.4 1.1 1 2-.6 1.6-2 2.7-3.7 2.5C7.7 16 4 12.3 3.4 7.2c-.2-1.8.4-3.4 1.8-4.4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
           <a class="va-ic" data-mailto="hello=karimt.com" href="#contact" aria-label="Email" title="Email"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.6" y="4.4" width="14.8" height="11.2" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.2 5.4l6.8 5.4 6.8-5.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
           <a class="va-ic" href="https://www.linkedin.com/in/karimt-com/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.6" y="2.6" width="14.8" height="14.8" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M6.4 8.6v5.2M6.4 6.1v.1M9.6 13.8V8.6m0 2.4c0-1.4 1-2.5 2.2-2.5s2 .9 2 2.4v2.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a>
         </nav>
-        <button class="cue" id="cue" type="button"><span id="cueTxt">Scroll</span><svg viewBox="0 0 12 30" aria-hidden="true"><path d="M6 1 C 5 10, 7 17, 6 27" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M1.5 22 C 3.6 24, 4.8 25.6, 6 28.4 C 7.2 25.6, 8.4 24, 10.5 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-
-      <div class="hero-comp" id="heroComp">
-        <div class="wrap">
-          <div class="hero-grid">
-            <div class="hero-l">
-              <span class="eyebrow" id="heroEb">Karim Tousbih &middot; Creative generalist</span>
-              <h2 class="h1" id="h1"><span class="ln1"><span class="hw">I</span> <span class="hw">help</span> <span class="hw">ideas</span></span><span class="ln2"><span class="hw">take</span> <span class="hw sh">shape.<svg class="oval" viewBox="0 0 260 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M132 12 C 214 6, 258 26, 252 54 C 246 84, 154 100, 74 95 C 20 91, 4 66, 14 42 C 23 20, 82 8, 156 11 C 196 13, 224 22, 236 38" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" opacity=".9"/><path pathLength="1" d="M146 18 C 210 15, 242 30, 240 50" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".4"/></svg></span></span></h2>
-            </div>
-            <div class="slot" id="slot">
-              <img class="ghost g1" src="/media/logo-kt.webp" alt="" aria-hidden="true" width="185" height="180">
-              <img class="ghost g2" src="/media/logo-kt.webp" alt="" aria-hidden="true" width="185" height="180">
-              <img class="slot-img" src="/media/portrait-xl.webp" width="1000" height="1000" alt="Karim Tousbih">
-              <img class="slot-sign" src="/media/logo-lockup.webp" width="327" height="340" alt="" aria-hidden="true">
-            </div>
-          </div>
-        </div>
+      <div class="hero-body">
+        <p class="lead" data-rv>Creative generalist: part strategist, part maker, part project lead. Helping companies sharpen their story, then bring it to life. Websites, campaigns, visuals, identities and the systems behind them, from first thought to finished work.</p>
+        <p class="why" data-rv>Because I believe a good idea only matters once it moves the people it&rsquo;s for.</p>
+        <p class="base" data-rv>Based in Belgium, collaborating with companies and teams internationally.</p>
+        <div data-rv><a class="cta" href="#contact">Get in touch <svg viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6.4 C 12 5.4, 20 5.2, 30 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M23.5 1.8 C 26.5 3.8, 28.5 5, 31.5 6 C 28.5 7, 26.5 8.4, 23.5 10.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="ghostbtn" href="https://www.linkedin.com/in/karimt-com/" target="_blank" rel="noopener">LinkedIn</a></div>
       </div>
-
-      <div class="morph" id="morph" aria-hidden="true"><img src="/media/portrait-xl.webp" alt=""></div>
-      <div class="sweep" id="sweep" aria-hidden="true"><img src="/media/kt-xl.webp" alt=""></div>
     </div>
-  </section>
-
-  <section class="lead-sec">
-    <div class="wrap"><div>
-      <p class="lead" data-rv>Creative generalist: part strategist, part maker, part project lead. Helping companies sharpen their story, then bring it to life. Websites, campaigns, visuals, identities and the systems behind them, from first thought to finished work.</p>
-      <p class="why" data-rv>Because I believe a good idea only matters once it moves the people it&rsquo;s for.</p>
-      <p class="base" data-rv>Based in Belgium, collaborating with companies and teams internationally.</p>
-      <div data-rv><a class="cta" href="#contact">Get in touch <svg viewBox="0 0 34 12" aria-hidden="true"><path d="M2 6.4 C 12 5.4, 20 5.2, 30 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M23.5 1.8 C 26.5 3.8, 28.5 5, 31.5 6 C 28.5 7, 26.5 8.4, 23.5 10.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="ghostbtn" href="https://www.linkedin.com/in/karimt-com/" target="_blank" rel="noopener">LinkedIn</a></div>
-    </div></div>
   </section>
 
   <section class="svc" id="work">
@@ -576,9 +525,7 @@ html.motion [data-rv].in{opacity:1;transform:none}
   // mail links
   document.querySelectorAll('[data-mailto]').forEach(function(a){a.href='mailto:'+a.getAttribute('data-mailto').replace('=','@');});
 
-  // cue label
   var coarse=matchMedia('(pointer: coarse)').matches;
-  $('cueTxt').textContent=coarse?'Swipe up':'Scroll';
 
   // one-shot reveals + draws
   var revs=document.querySelectorAll('[data-rv]'), draws=document.querySelectorAll('[data-draw]');
@@ -590,29 +537,21 @@ html.motion [data-rv].in{opacity:1;transform:none}
     draws.forEach(function(e){io2.observe(e)});
   }
 
-  var hd=$('hd'), intro=$('intro'), pin=$('pin');
-  if(!motion){hd.classList.remove('off');hd.classList.add('solid');}
+  var hd=$('hd');
+  hd.classList.remove('off');
 
   // card tilt (desktop pointer)
-  var vc=$('vcard'), tiltX=0, tiltY=0;
+  var vc=$('vcard');
   if(motion&&!coarse){
-    $('cardStage').addEventListener('pointermove',function(e){
-      var r=vc.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
-      tiltY=(x-.5)*7; tiltX=(.5-y)*6;
-      vc.style.setProperty('--mx',(x*100)+'%'); vc.style.setProperty('--my',(y*100)+'%'); req();
+    var stage=$('cardStage');
+    stage.addEventListener('pointermove',function(e){
+      var r=vc.getBoundingClientRect(), x=clamp((e.clientX-r.left)/r.width,0,1), y=clamp((e.clientY-r.top)/r.height,0,1);
+      vc.style.transform='perspective(1100px) rotateX('+((.5-y)*7)+'deg) rotateY('+((x-.5)*9)+'deg)';
+      vc.style.setProperty('--mx',(x*100)+'%'); vc.style.setProperty('--my',(y*100)+'%');
     });
-    $('cardStage').addEventListener('pointerleave',function(){tiltX=tiltY=0;req();});
+    stage.addEventListener('pointerleave',function(){vc.style.transform='';});
   }
 
-  // cue: glide through the intro
-  $('cue').addEventListener('click',function(){
-    var target=motion?intro.offsetTop+intro.offsetHeight-innerHeight:$('heroComp').offsetTop;
-    window.scrollTo({top:target,behavior:'smooth'});
-  });
-
-  var sweep=$('sweep'), morph=$('morph'), slot=$('slot'), h1=$('h1'), eb=$('heroEb');
-  var hws=h1.querySelectorAll('.hw'), oval=h1.querySelectorAll('.oval path');
-  var ghosts=slot.querySelectorAll('.ghost,.slot-sign');
   var stops=document.querySelectorAll('.ln-stop'), lnwrap=$('lnwrap'), lnd=$('lnd'), lnm=$('lnm');
   var quotes=document.querySelectorAll('.rq');
   var Ld=0,Lm=0;
@@ -623,52 +562,9 @@ html.motion [data-rv].in{opacity:1;transform:none}
 
   function frame(){
     ticking=false;
-    var vh=innerHeight, vw=pin.clientWidth||innerWidth;
+    var vh=innerHeight;
+    hd.classList.toggle('solid',scrollY>24);
     if(motion){
-      // ---- intro progress
-      var ir=intro.getBoundingClientRect(), span=intro.offsetHeight-vh;
-      var p=span>0?clamp(-ir.top/span,0,1):1;
-
-      // card: subtle lift + tilt, then gets taken over
-      var tc=seg(p,.06,.46);
-      vc.style.transform='perspective(1100px) rotateX('+(tiltX*(1-tc))+'deg) rotateY('+(tiltY*(1-tc))+'deg) translateY('+(-tc*3)+'vh) scale('+(1-.05*tc)+')';
-      $('cardStage').style.visibility=p>.62?'hidden':'visible';
-      $('cardStage').style.setProperty('--bgo',1-seg(p,.5,.6));
-      $('cue').style.opacity=1-seg(p,0,.08);
-
-      // sweep: logo slaps across right -> left
-      var ts=eio(seg(p,.1,.52));
-      var sw=sweep.offsetWidth, cx=lerp(vw+sw*.55, -sw*.55, ts);
-      sweep.style.opacity=(p>.1&&p<.56)?1:0;
-      sweep.style.transform='translate('+(cx-sw/2)+'px,-50%) rotate('+lerp(10,-7,ts)+'deg) scale('+lerp(1.08,.96,ts)+')';
-
-      // morph photo: phase 1 reveal behind logo, phase 2 shrink into the arch slot
-      var sr=slot.getBoundingClientRect(), pr=pin.getBoundingClientRect();
-      var st=sr.top-pr.top, sl=sr.left-pr.left;
-      var tm=eio(seg(p,.5,.84));
-      var L=lerp(0,sl,tm), T=lerp(0,st,tm), W=lerp(vw,sr.width,tm), H=lerp(vh,sr.height,tm);
-      var rad=lerp(0,sr.width/2,tm), radb=rad;
-      morph.style.left=L+'px'; morph.style.top=T+'px'; morph.style.width=W+'px'; morph.style.height=H+'px';
-      morph.style.borderRadius=rad+'px '+rad+'px '+radb+'px '+radb+'px';
-      var feather=Math.max(60,vw*.07), revealX=p<.1?vw+feather*2:clamp(cx,-feather,vw+feather);
-      var m=p>=.52?'none':'linear-gradient(90deg,transparent '+(revealX-feather)+'px,#000 '+(revealX+feather)+'px)';
-      morph.style.webkitMaskImage=m; morph.style.maskImage=m;
-      morph.style.boxShadow=tm>.98?'none':'0 30px 60px -24px rgba(0,0,0,'+(.35*tm)+')';
-      morph.style.outline=tm>.98?'1px solid var(--grey-2)':'none';
-
-      // hero text
-      var tw=seg(p,.66,.94);
-      hws.forEach(function(w,i){var t=eo(seg(tw,i*.11,i*.11+.5));w.style.transform='translateY('+((1-t)*110)+'%)';w.style.opacity=t;});
-      eb.style.opacity=seg(p,.7,.86);
-      var to=seg(p,.86,1);
-      oval.forEach(function(o,i){o.style.strokeDashoffset=1-seg(to,i?.45:0,i?1:.75);});
-      ghosts.forEach(function(g){g.style.opacity=(g.classList.contains('slot-sign')?.9:.16)*seg(p,.8,.98);});
-
-      // header
-      var past=ir.bottom<=vh+2;
-      hd.classList.toggle('off',p<.66&&!past);
-      hd.classList.toggle('solid',past);
-
       // ---- services: line + side entries
       var lr=lnwrap.getBoundingClientRect();
       var pl=clamp((vh*.78-lr.top)/lr.height,0,1);
@@ -688,7 +584,9 @@ html.motion [data-rv].in{opacity:1;transform:none}
       });
     }
   }
-  if(motion){addEventListener('scroll',req,{passive:true});addEventListener('resize',req);addEventListener('load',req);req();}
+  addEventListener('scroll',req,{passive:true});
+  if(motion){addEventListener('resize',req);addEventListener('load',req);}
+  req();
 })();
 </script>
 </body>
